@@ -151,3 +151,65 @@ button:disabled {
 .results-list li p {
     color: #444;
 }
+
+/* Estilos para badges e iconos */
+i {
+    margin-right: 5px;
+}
+
+.manga-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.meta-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+}
+
+.status-badge, .rating-badge, .tag-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-badge {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+.status-badge.completed { background-color: #e8f5e9; color: #2e7d32; }
+.status-badge.ongoing { background-color: #fff3e0; color: #ef6c00; }
+.status-badge.cancelled { background-color: #ffebee; color: #c62828; }
+
+.rating-badge {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+}
+.rating-badge.safe { background-color: #e8f5e9; color: #2e7d32; }
+.rating-badge.suggestive { background-color: #fff3e0; color: #ef6c00; }
+.rating-badge.erotica, .rating-badge.pornographic { background-color: #ffebee; color: #c62828; }
+
+.tags-container {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.tag-badge {
+    background-color: #f5f5f5;
+    color: #424242;
+    border: 1px solid #e0e0e0;
+}
+
+.manga-description {
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.5;
+}
+

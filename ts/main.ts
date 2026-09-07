@@ -9,11 +9,21 @@ interface MangaDescription {
     [key: string]: string;
 }
 
+interface MangaTag {
+    attributes: {
+        name: {
+            en: string;
+        };
+    };
+}
+
 interface MangaAttributes {
     title: MangaTitle;
     description: MangaDescription;
     status: string;
     year: number | null;
+    contentRating: string;
+    tags: MangaTag[];
 }
 
 interface MangaData {
@@ -83,33 +93,61 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para crear y agregar un elemento de manga al DOM de forma segura
     const renderManga = (manga: MangaData) => {
         const li = document.createElement('li');
+        li.className = 'manga-card';
         
         const titleEl = document.createElement('h3');
         const titleText = getMainTitle(manga.attributes.title);
         const yearText = manga.attributes.year ? ` (${manga.attributes.year})` : '';
+        titleEl.innerHTML = `<i class="fa-solid fa-book-open"></i> ${titleText}${yearText}`; // Usamos innerHTML SOLO para el icono, el texto lo inyectamos de forma segura después o lo escapamos.
+        // Mejor práctica: Crear elemento i, y luego añadir texto
+        titleEl.innerHTML = '<i class="fa-solid fa-book-open"></i> ';
+        titleEl.appendChild(document.createTextNode(`${titleText}${yearText}`));
         
-        // Uso estricto de textContent para evitar vulnerabilidades XSS
-        titleEl.textContent = `${titleText}${yearText}`;
-        
-        const statusEl = document.createElement('div');
-        statusEl.className = 'status-badge';
-        statusEl.textContent = `Estado: ${manga.attributes.status}`;
-        statusEl.style.fontSize = '0.85em';
-        statusEl.style.color = '#0056b3';
-        statusEl.style.marginBottom = '10px';
-        statusEl.style.fontWeight = 'bold';
+        // Contenedor de metadatos (badges)
+        const metaContainer = document.createElement('div');
+        metaContainer.className = 'meta-container';
+
+        // Badge Estado
+        const statusEl = document.createElement('span');
+        statusEl.className = `status-badge ${manga.attributes.status}`;
+        statusEl.innerHTML = '<i class="fa-solid fa-signal"></i> ';
+        statusEl.appendChild(document.createTextNode(`Estado: ${manga.attributes.status}`));
+
+        // Badge Rating
+        const ratingEl = document.createElement('span');
+        ratingEl.className = `rating-badge ${manga.attributes.contentRating}`;
+        ratingEl.innerHTML = '<i class="fa-solid fa-shield-halved"></i> ';
+        ratingEl.appendChild(document.createTextNode(`Clasificación: ${manga.attributes.contentRating}`));
+
+        metaContainer.appendChild(statusEl);
+        metaContainer.appendChild(ratingEl);
+
+        // Tags
+        const tagsContainer = document.createElement('div');
+        tagsContainer.className = 'tags-container';
+        if (manga.attributes.tags && manga.attributes.tags.length > 0) {
+            // Mostrar solo los primeros 5 tags para no saturar
+            manga.attributes.tags.slice(0, 5).forEach(tag => {
+                const tagEl = document.createElement('span');
+                tagEl.className = 'tag-badge';
+                const tagName = tag.attributes.name.en || 'Tag';
+                tagEl.innerHTML = '<i class="fa-solid fa-tag"></i> ';
+                tagEl.appendChild(document.createTextNode(tagName));
+                tagsContainer.appendChild(tagEl);
+            });
+        }
 
         const descEl = document.createElement('p');
-        // Usar descripción en inglés si existe, si no avisar que no hay
+        descEl.className = 'manga-description';
         const descText = manga.attributes.description && manga.attributes.description['en'] 
             ? manga.attributes.description['en'] 
             : 'Sin descripción disponible en inglés.';
             
-        // Limitar la descripción para no colapsar la UI
         descEl.textContent = descText.length > 250 ? descText.substring(0, 250) + '...' : descText;
 
         li.appendChild(titleEl);
-        li.appendChild(statusEl);
+        li.appendChild(metaContainer);
+        li.appendChild(tagsContainer);
         li.appendChild(descEl);
         
         resultsList.appendChild(li);

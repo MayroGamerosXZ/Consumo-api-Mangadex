@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador de Manga (MangaDex API)</title>
+    <!-- Agregar FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <main class="container">
         <header>
-            <h1>Buscador de Manga</h1>
+            <h1><i class="fa-solid fa-book-journal-whills"></i> Buscador de Manga</h1>
             <p>Encuentra tus mangas favoritos utilizando la API pública de MangaDex.</p>
         </header>
 
         <section class="search-section">
             <form id="search-form" aria-label="Formulario de búsqueda de manga">
                 <div class="form-group">
-                    <label for="title">Título del Manga:</label>
+                    <label for="title"><i class="fa-solid fa-magnifying-glass"></i> Título del Manga:</label>
                     <input 
                         type="text" 
                         id="title" 
@@ -30,7 +32,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="limit">Cantidad de resultados (Opcional):</label>
+                    <label for="limit"><i class="fa-solid fa-list-ol"></i> Cantidad de resultados (Opcional):</label>
                     <input 
                         type="number" 
                         id="limit" 
@@ -42,7 +44,7 @@
                     >
                 </div>
 
-                <button type="submit" id="submit-btn">Buscar Manga</button>
+                <button type="submit" id="submit-btn"><i class="fa-solid fa-search"></i> Buscar Manga</button>
             </form>
         </section>
 
