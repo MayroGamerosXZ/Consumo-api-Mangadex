@@ -33,4 +33,4 @@ Debido a que el código fuente incluye TypeScript, debe ser compilado antes de u
    `ash
    npx http-server -p 8080 -c-1
    `
-5. Ingresa a http://127.0.0.1:8080/ en tu navegador.
+5. Ingresa a http://localhost:8080/ en tu navegador.
