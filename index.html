@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Manga (MangaDex API)</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Buscador de Manga</h1>
+            <p>Encuentra tus mangas favoritos utilizando la API pública de MangaDex.</p>
+        </header>
+
+        <section class="search-section">
+            <form id="search-form" aria-label="Formulario de búsqueda de manga">
+                <div class="form-group">
+                    <label for="title">Título del Manga:</label>
+                    <input 
+                        type="text" 
+                        id="title" 
+                        name="title" 
+                        minlength="2" 
+                        maxlength="100" 
+                        required 
+                        aria-required="true"
+                        placeholder="Ej. Naruto, Berserk, One Piece..."
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="limit">Cantidad de resultados (Opcional):</label>
+                    <input 
+                        type="number" 
+                        id="limit" 
+                        name="limit" 
+                        min="1"
+                        max="20"
+                        value="10"
+                        placeholder="Máx. 20"
+                    >
+                </div>
+
+                <button type="submit" id="submit-btn">Buscar Manga</button>
+            </form>
+        </section>
+
+        <!-- Estados de Interfaz -->
+        <section id="results-container" class="results-section" aria-live="polite">
+            
+            <!-- Estado Inicial -->
+            <div id="state-initial" class="state-message">
+                <p>Ingresa el título de un manga y haz clic en "Buscar".</p>
+            </div>
+
+            <!-- Estado Cargando -->
+            <div id="state-loading" class="state-message hidden">
+                <div class="spinner"></div>
+                <p>Buscando mangas en la base de datos...</p>
+            </div>
+
+            <!-- Estado Error -->
+            <div id="state-error" class="state-message hidden error">
+                <p id="error-text">Ha ocurrido un error al buscar.</p>
+            </div>
+
+            <!-- Estado Sin Resultados -->
+            <div id="state-empty" class="state-message hidden">
+                <p>No se encontraron mangas con ese título.</p>
+            </div>
+
+            <!-- Estado Éxito (Lista) -->
+            <ul id="results-list" class="results-list hidden">
+                <!-- Los resultados se inyectarán aquí -->
+            </ul>
+        </section>
+    </main>
+
+    <script src="ts/main.js"></script>
+</body>
+</html>

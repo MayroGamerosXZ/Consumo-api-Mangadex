@@ -1,0 +1,10 @@
+{
+  "name": "formulario-api",
+  "version": "1.0.0",
+  "description": "App para buscar publicaciones de una API",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npx http-server -p 8080 -c-1",
+    "dev": "npx tsc -w"
+  }
+}
